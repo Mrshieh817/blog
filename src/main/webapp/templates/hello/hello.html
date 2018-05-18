@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>测试</title>
+</head>
+<body>
+ <div style="text-align: center;color:red">
+    66666
+ </div>
+ <div>
+   #for(x:schoolPage)
+      <span>#(x["id"])</span>
+   #end
+   
+   <div>
+    #(schoolPage)
+   </div>
+ </div>
+</body>
+</html>
