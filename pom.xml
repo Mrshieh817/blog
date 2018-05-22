@@ -15,20 +15,31 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- JFinal -->
+		<!-- 项目的核心包 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<!-- JFinal -->
 		<dependency>
 			<groupId>com.jfinal</groupId>
 			<artifactId>jfinal</artifactId>
 			<version>3.0</version>
 		</dependency>
-
+		<!-- mybatis 小插件 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.28</version>
+		</dependency>
+		<!-- mysql的驱动包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.42</version>
+		</dependency>
 
 	</dependencies>
 	<build>
