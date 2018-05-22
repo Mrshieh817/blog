@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.src.model.citymodel;
+import com.src.model.igxemodel;
 
 /**
  * @author 作者:大飞
@@ -47,7 +48,7 @@ public class HelloController extends Controller {
 	/*回去数据库的数据,使用此方法需要在配置文件与数据库映射实体信息,需要mysql包*/
 	public void getdata()
 	{
-	  List<citymodel> list=	new citymodel().dao().find("select * from city");
+	  List<igxemodel> list=	new igxemodel().dao().find("select  top 100 *   from     dbo.newGXE_OrderFiFaApiInformation  order by  id_int desc  ");
 	  renderJson(list);
 	}
 }
