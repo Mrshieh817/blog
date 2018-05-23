@@ -4,6 +4,7 @@ import com.jfinal.config.*;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.AnsiSqlDialect;
+import com.jfinal.plugin.activerecord.dialect.SqlServerDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
@@ -46,7 +47,8 @@ public class ProConfig extends JFinalConfig {
         ActiveRecordPlugin arp = new ActiveRecordPlugin(C3p0Plugin);  
         me.add(arp);  
         //设置方言（很重要，一定要设置）  
-        arp.setDialect(new AnsiSqlDialect());	// 也可以是:SqlServerDialect
+        arp.setDialect(new SqlServerDialect());	// 也可以是:SqlServerDialect  AnsiSqlDialect
+        arp.setShowSql(true);
         arp.addMapping("newGXE_OrderFiFaApiInformation", igxemodel.class);
 	}
 

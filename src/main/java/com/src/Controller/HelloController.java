@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
 import com.src.model.citymodel;
 import com.src.model.igxemodel;
 
@@ -48,7 +49,10 @@ public class HelloController extends Controller {
 	/*回去数据库的数据,使用此方法需要在配置文件与数据库映射实体信息,需要mysql包*/
 	public void getdata()
 	{
-	  List<igxemodel> list=	new igxemodel().dao().find("select  top 100 *   from     dbo.newGXE_OrderFiFaApiInformation  order by  id_int desc  ");
+		String from = "from newGXE_OrderFiFaApiInformation ";
+		String totalRowSql = "select count(*) " + from;
+		String findSql = "select * " + from + " order by id_int desc ";
+		Page<igxemodel> list=	new igxemodel().dao().paginateByFullSql(1,10,totalRowSql,findSql);
 	  renderJson(list);
 	}
 }
