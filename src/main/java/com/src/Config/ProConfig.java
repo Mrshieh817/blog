@@ -18,11 +18,13 @@ import com.src.model.igxemodel;
 
 public class ProConfig extends JFinalConfig {
 	public void configConstant(Constants me) {
+		//设置视图模板
 		me.setDevMode(true);
 		me.setViewType(ViewType.JFINAL_TEMPLATE);
 	}
 
 	public void configRoute(Routes me) {
+		//添加视图的html位置
 		me.add("/hello", HelloController.class);
 		me.setBaseViewPath("/templates");
 	}
