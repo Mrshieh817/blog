@@ -52,7 +52,7 @@ public class HelloController extends Controller {
 		String from = "from newGXE_OrderFiFaApiInformation ";
 		String totalRowSql = "select count(*) " + from;
 		String findSql = "select * " + from + " order by id_int desc ";
-		Page<igxemodel> list=	new igxemodel().dao().paginateByFullSql(1,10,totalRowSql,findSql);
+		Page<igxemodel> list=	new igxemodel().dao().paginateByFullSql(2,10,totalRowSql,findSql);
 	  renderJson(list);
 	}
 }
