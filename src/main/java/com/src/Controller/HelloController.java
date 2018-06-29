@@ -53,7 +53,7 @@ public class HelloController extends Controller {
 	/* 回去数据库的数据,使用此方法需要在配置文件与数据库映射实体信息,需要mysql包 */
 	public void getdata() {
 		String from = "from newGXE_OrderFiFaApiInformation ";
-		String totalRowSql = "select count(*) " + from;
+		String totalRowSql = "select count(*) " + from; 
 		String findSql = "select * " + from + " order by id_int desc ";
 		Page<igxemodel> list = new igxemodel().dao().paginateByFullSql(2, 10, totalRowSql, findSql);
 		renderJson(list);
