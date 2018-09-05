@@ -11,6 +11,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.src.model.citymodel;
 import com.src.model.igxemodel;
@@ -55,6 +56,7 @@ public class HelloController extends Controller {
 		String from = "from newGXE_OrderFiFaApiInformation ";
 		String totalRowSql = "select count(*) " + from; 
 		String findSql = "select * " + from + " order by id_int desc ";
+		//List<Record> record =Db.query("");
 		Page<igxemodel> list = new igxemodel().dao().paginateByFullSql(2, 10, totalRowSql, findSql);
 		renderJson(list);
 	}
@@ -79,7 +81,6 @@ public class HelloController extends Controller {
 			list.put("resultstatus", succeed);
 			list.put("resultstinfo", e.getMessage());
 		}
-
 		renderJson("结果", list);
 	}
 
