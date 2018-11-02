@@ -1,6 +1,11 @@
 package com.src.Config;
 
+import java.lang.ProcessBuilder.Redirect;
+
+import com.jfinal.aop.Interceptor;
+import com.jfinal.aop.Invocation;
 import com.jfinal.config.*;
+import com.jfinal.core.Controller;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.AnsiSqlDialect;
@@ -10,6 +15,7 @@ import com.jfinal.plugin.activerecord.tx.TxByActionKeys;
 import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.activerecord.tx.TxByMethods;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
+import com.jfinal.render.Render;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.src.Controller.HelloController;
@@ -60,13 +66,34 @@ public class ProConfig extends JFinalConfig {
 		arp.setShowSql(true);
 		arp.addMapping("newGXE_OrderFiFaApiInformation", igxemodel.class);
 	}
-      /*增加事物级别的操作*/
+
+	/* 增加事物级别的操作 */
 	public void configInterceptor(Interceptors me) {
+		// actionKey 正则 实现方式---拦截器
+		// me.add(new TxByActionKeyRegex("/user.*"));
+		me.add(new ClassInterceptorA());
 		me.add(new TxByMethodRegex("(.*save.*|.*update.*)"));
 		me.add(new TxByMethods("save", "update"));
 
 		me.add(new TxByActionKeyRegex("/trans.*"));
 		me.add(new TxByActionKeys("/tx/save", "/tx/update"));
+	}
+
+	public class ClassInterceptorA implements Interceptor {
+		public void intercept(Invocation inv) {
+			
+			System.out.println("调用前的操作");
+			System.out.println("请求地址:"+inv.getController().getRequest().getRequestURI());
+			Controller ctl = inv.getController();
+			String isLogin = (String) ctl.getSession().getAttribute("isLogin");
+			if(isLogin == null || !isLogin.equals("lalala")){
+				System.out.println("wtf!");
+				inv.invoke();
+				ctl.render("/index.jsp");
+			}
+			
+			System.out.println("调用后的操作");
+		}
 	}
 
 	public void configHandler(Handlers me) {

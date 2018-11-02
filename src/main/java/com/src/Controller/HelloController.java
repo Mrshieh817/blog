@@ -30,7 +30,10 @@ public class HelloController extends Controller {
 		renderJson("Hello", list);
 
 	}
+	public void deindex() {
+		render("index.jsp");
 
+	}
 	public void update() {
 		Map<String, Object> list = new HashMap<String, Object>();
 		list.put("id", 123456);
