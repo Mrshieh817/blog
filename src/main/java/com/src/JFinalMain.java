@@ -9,7 +9,7 @@ import com.jfinal.core.JFinal;
 
 public class JFinalMain {
 	public static void main(String[] args) {
-		//JFinal.start("/src/main/webapp", 80, "/", 5);
-		JFinal.start("WebRoot", 8080, "/", 5);
+		JFinal.start("/src/main/webapp", 80, "/", 5);
+		//JFinal.start("WebRoot", 8080, "/", 5);
 	}
 }

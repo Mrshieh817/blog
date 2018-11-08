@@ -1,6 +1,5 @@
 package com.src.Config;
 
-import java.lang.ProcessBuilder.Redirect;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
@@ -8,18 +7,17 @@ import com.jfinal.config.*;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
-import com.jfinal.plugin.activerecord.dialect.AnsiSqlDialect;
 import com.jfinal.plugin.activerecord.dialect.SqlServerDialect;
 import com.jfinal.plugin.activerecord.tx.TxByActionKeyRegex;
 import com.jfinal.plugin.activerecord.tx.TxByActionKeys;
 import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.activerecord.tx.TxByMethods;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
-import com.jfinal.render.Render;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.src.Controller.HelloController;
 import com.src.model.igxemodel;
+import com.src.model.newgxe_user;
 
 /**
  * @author 作者:大飞
@@ -65,6 +63,7 @@ public class ProConfig extends JFinalConfig {
 												// AnsiSqlDialect
 		arp.setShowSql(true);
 		arp.addMapping("newGXE_OrderFiFaApiInformation", igxemodel.class);
+		arp.addMapping("newgxe_user", newgxe_user.class);
 	}
 
 	/* 增加事物级别的操作 */
@@ -85,13 +84,13 @@ public class ProConfig extends JFinalConfig {
 			System.out.println("调用前的操作");
 			System.out.println("请求地址:"+inv.getController().getRequest().getRequestURI());
 			Controller ctl = inv.getController();
-			String isLogin = (String) ctl.getSession().getAttribute("isLogin");
-			if(isLogin == null || !isLogin.equals("lalala")){
+			String isLogin = (String) ctl.getSession().getAttribute("deindex");
+			if(isLogin != null && !isLogin.equals("deindex")){
 				System.out.println("wtf!");
-				inv.invoke();
+				
 				ctl.render("/index.jsp");
 			}
-			
+			inv.invoke();
 			System.out.println("调用后的操作");
 		}
 	}

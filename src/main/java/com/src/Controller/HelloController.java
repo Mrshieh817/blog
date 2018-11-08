@@ -15,6 +15,7 @@ import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.src.model.citymodel;
 import com.src.model.igxemodel;
+import com.src.model.newgxe_user;
 
 /**
  * @author 作者:大飞
@@ -30,10 +31,12 @@ public class HelloController extends Controller {
 		renderJson("Hello", list);
 
 	}
+
 	public void deindex() {
 		render("index.jsp");
 
 	}
+
 	public void update() {
 		Map<String, Object> list = new HashMap<String, Object>();
 		list.put("id", 123456);
@@ -54,12 +57,18 @@ public class HelloController extends Controller {
 		renderTemplate("hello.html");
 	}
 
+	public void getuser() {
+		String sql = "select * from newgxe_user";
+		List<newgxe_user> list = new newgxe_user().dao().find(sql);
+		renderJson(list);
+	}
+
 	/* 回去数据库的数据,使用此方法需要在配置文件与数据库映射实体信息,需要mysql包 */
 	public void getdata() {
 		String from = "from newGXE_OrderFiFaApiInformation ";
-		String totalRowSql = "select count(*) " + from; 
+		String totalRowSql = "select count(*) " + from;
 		String findSql = "select * " + from + " order by id_int desc ";
-		//List<Record> record =Db.query("");
+		// List<Record> record =Db.query("");
 		Page<igxemodel> list = new igxemodel().dao().paginateByFullSql(2, 10, totalRowSql, findSql);
 		renderJson(list);
 	}
@@ -72,8 +81,11 @@ public class HelloController extends Controller {
 		try {
 			succeed = Db.tx(new IAtom() {
 				public boolean run() throws SQLException {
-					Db.update("update newGXE_OrderFiFaApiInformation set orderid_int = orderid_int - ? where id_int = ?",100, 0);
-					Db.update("update newGXE_OrderFiFaApiInformation set orderid_int = orderid_int + ? where d_int = ?",100, 0);
+					Db.update(
+							"update newGXE_OrderFiFaApiInformation set orderid_int = orderid_int - ? where id_int = ?",
+							100, 0);
+					Db.update("update newGXE_OrderFiFaApiInformation set orderid_int = orderid_int + ? where d_int = ?",
+							100, 0);
 					return true;
 				}
 			});
