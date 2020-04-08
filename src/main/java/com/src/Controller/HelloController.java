@@ -33,10 +33,12 @@ public class HelloController extends Controller {
 	}
 
 	public void deindex() {
-		render("index.jsp");
-
+		render("/index.jsp");
 	}
 
+	public void helloindex() {
+		render("hello.html");
+	}
 	public void update() {
 		Map<String, Object> list = new HashMap<String, Object>();
 		list.put("id", 123456);
